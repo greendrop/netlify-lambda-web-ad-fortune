@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  node:
+    build: ./docker/node
+    environment:
+      USER_ID: ${USER_ID}
+      GROUP_ID: ${GROUP_ID}
+    volumes:
+      - .:/app
+      - home_volume:/home/docker
+    working_dir: /app
+    ports:
+      - '9000:9000'
+    entrypoint: ./docker/node/docker-entrypoint.sh
+    command: yarn run dev
+
+volumes:
+  home_volume:
+    driver: local
+
